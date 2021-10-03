@@ -1,5 +1,34 @@
-.todocontainer{
-    width:90%;
-    max-width: 500px;
-    margin: 0 auto;
+body{
+  background: #0c1c34;
+  color: #64ffda;
+
+}
+.container{
+  max-width: 400px;
+  padding-top: 10vh;
+}
+input[type=text],
+input[type=text]:focus{
+  color: #64ffda;
+  border: none;
+  background: rgba(0,0,0,0.2);
+  max-width: 400px;
+  border-color: #64ffda;
+}
+h1{
+    color: #64ffda;
+}
+.contain{
+    padding: 70px;
+}
+
+.todos li{
+  background:#0c1c34;
+  color: #64ffda;
+}
+.delete{
+  cursor: pointer;
+}
+.filtered {
+  display:none !important;
 }
