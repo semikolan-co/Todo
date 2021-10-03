@@ -1,30 +1,46 @@
-var todoform = document.getElementById("todoform");
-var items = [];
-todoform.addEventListener("submit", function(event) {
-    var item = todoform.querySelector("input[type=text]").value;
-    items.push(item);
-    console.log(item);
-    renderItems();
+const addForm = document.querySelector(".add");
+let list = document.querySelector(".todos");
+const search = document.querySelector(".search > .form-control");
+
+const generateTemplate = (todo) => {
+  const item = `
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>${todo}</span>
+        <span class="delete">×</span>
+      </li>`;
+  list.innerHTML += item
+};
+
+addForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const todo = addForm.add.value.trim();
+  if(todo.length) {
+    generateTemplate(todo)
+    addForm.reset()
+  }
+  
 });
 
-function renderItems(){
-    itemdiv = document.getElementById("items");
-    itemdiv.innerHTML = "";
-    items.forEach((item,i) => {
-        itemdiv.innerHTML += `
-        
-        <div class="item row">
-        <p class="col-11">${i+1} - ${item}</p>
-        <div class="col-1">
+// Delete todo
+list.addEventListener('click', e => {
+  if(e.target.classList.contains('delete')) {
+    e.target.parentElement.remove()
+  }
+})
 
-            <button class="btn btn-sm btn-danger" onclick="deleteItem(${i})">X</button>
-        </div>
-    </div>
-        `;
-    });
+// filter todos
+const filterTodo = term => {
+  Array.from(list.children)
+    .filter(todo => !todo.textContent.toLowerCase().includes(term))
+    .forEach(todo => todo.classList.add('filtered'));
+  
+  Array.from(list.children)
+    .filter(todo => todo.textContent.toLowerCase().includes(term))
+    .forEach(todo => todo.classList.remove('filtered'));
 }
+search.addEventListener('keyup', () => {
+  const term = search.value.trim().toLowerCase()
+  filterTodo(term)
+})
 
-function deleteItem(index){
-    items.splice(index,1);
-    renderItems();
-}
